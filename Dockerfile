@@ -37,11 +37,11 @@ USER nodeuser
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD node -e "console.log('Health check passed')" || exit 1
 
-# Expose port (for potential future web interface)
-EXPOSE 3000
+# Expose port (for web interface)
+EXPOSE 8080
 
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
 
-# Default command
-CMD ["node", "src/index.js"]
+# Default command - run web server
+CMD ["node", "src/web-server.js"]

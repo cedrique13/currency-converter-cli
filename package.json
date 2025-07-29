@@ -1,25 +1,38 @@
 {
   "name": "currency-converter-cli",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Interactive CLI currency converter with real-time exchange rates",
+  "main": "src/index.js",
+  "bin": {
+    "currency-converter": "src/index.js"
+  },
   "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github-school:cedrique13/currency-converter-cli.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "keywords": [
+    "currency",
+    "converter",
+    "cli",
+    "exchange-rate",
+    "nodejs"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
   "dependencies": {
-    "axios": "^1.11.0",
-    "dotenv": "^17.2.1",
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/currency-converter-cli.git"
   }
 }

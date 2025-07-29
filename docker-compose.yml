@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  currency-converter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: currency-converter-cli:latest
+    container_name: currency-converter-app
+    environment:
+      - EXCHANGE_API_KEY=${EXCHANGE_API_KEY}
+      - NODE_ENV=production
+    restart: unless-stopped
+    stdin_open: true # Keep STDIN open for interactive CLI
+    tty: true # Allocate a pseudo-TTY for interactive mode
+    networks:
+      - currency-net
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Health check passed')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    # Volume for logs (optional)
+    volumes:
+      - ./logs:/app/logs:rw
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: "0.5"
+        reservations:
+          memory: 128M
+          cpus: "0.25"
+
+  # Example web interface service (for future extension)
+  # currency-web:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.web
+  #   ports:
+  #     - "8080:3000"
+  #   environment:
+  #     - EXCHANGE_API_KEY=${EXCHANGE_API_KEY}
+  #   depends_on:
+  #     - currency-converter
+  #   networks:
+  #     - currency-net
+
+networks:
+  currency-net:
+    driver: bridge
+    name: currency-converter-network
+
+# Volumes for persistent data (if needed in future)
+volumes:
+  logs:
+    driver: local

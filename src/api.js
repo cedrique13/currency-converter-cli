@@ -13,7 +13,7 @@ const API_KEY = process.env.EXCHANGE_API_KEY;
  * @returns {boolean} - True if API key exists
  */
 function isApiKeyConfigured() {
-  return API_KEY && API_KEY !== "your_api_key_here";
+  return API_KEY && API_KEY !== "api_key";
 }
 
 /**

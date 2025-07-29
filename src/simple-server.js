@@ -18,7 +18,7 @@ app.use(express.json());
 app.get("/health", (req, res) => {
   res.json({
     status: "healthy",
-    service: "Currency Converter API - Cedrick13",
+    service: "Currency Converter API ",
     timestamp: new Date().toISOString(),
     server: process.env.HOSTNAME || "Unknown",
   });
@@ -27,7 +27,7 @@ app.get("/health", (req, res) => {
 // Root endpoint - simple response
 app.get("/", (req, res) => {
   res.json({
-    message: "Currency Converter API - Cedrick13",
+    message: "Currency Converter API ",
     endpoints: {
       health: "/health",
       convert: "/convert (POST)",
@@ -78,12 +78,12 @@ app.post("/convert", async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`💱 Currency Converter API - Cedrick13`);
+  console.log(`💱 Currency Converter API `);
   console.log(`=====================================`);
-  console.log(`🌐 Server running on port ${PORT}`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/health`);
-  console.log(`📱 API endpoint: http://localhost:${PORT}/convert`);
-  console.log(`⏰ Started at: ${new Date().toISOString()}`);
+  console.log(` Server running on port ${PORT}`);
+  console.log(` Health check: http://localhost:${PORT}/health`);
+  console.log(` API endpoint: http://localhost:${PORT}/convert`);
+  console.log(` Started at: ${new Date().toISOString()}`);
 });
 
 module.exports = app;

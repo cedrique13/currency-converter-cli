@@ -13,8 +13,8 @@ RUN npm ci --only=production && npm cache clean --force
 # Production stage
 FROM node:18-alpine AS production
 
-# Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
+# Install dumb-init and necessary packages for readline-sync
+RUN apk add --no-cache dumb-init perl util-linux
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \

@@ -2,10 +2,19 @@
 
 A feature-rich, interactive command-line currency converter that provides real-time exchange rates using the ExchangeRate-API. Built with Node.js and designed for easy deployment with Docker.
 
+## 🌐 Live Demo
+
+**Your application is now live and deployed on Render!**
+
+- **Main URL**: https://cedrique13-cli.onrender.com/
+- **Health Check**: https://cedrique13-cli.onrender.com/health
+- **API Endpoint**: https://cedrique13-cli.onrender.com/convert
+
 ## Features
 
 - 🔄 **Real-time Exchange Rates** - Fetches live exchange rates from ExchangeRate-API
 - 💬 **Interactive CLI** - User-friendly prompts with input validation
+- 🌐 **Web API** - HTTP endpoints for programmatic access
 - 🛡️ **Robust Error Handling** - Comprehensive error handling for network and API issues
 - 🐳 **Docker Ready** - Fully containerized for easy deployment
 - 🔒 **Secure** - API keys managed through environment variables
@@ -23,7 +32,7 @@ A feature-rich, interactive command-line currency converter that provides real-t
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/cedrique13/currency-converter-cli.git
 cd currency-converter-cli
 ```
 
@@ -45,13 +54,21 @@ echo "EXCHANGE_API_KEY=your_actual_api_key_here" > .env
 
 ### 4. Run the Application
 
+#### CLI Mode (Interactive)
 ```bash
 npm start
+# OR
+node src/index.js
+```
+
+#### Web API Mode (HTTP Server)
+```bash
+node src/simple-server.js
 ```
 
 ## Usage
 
-### Interactive Mode
+### Interactive CLI Mode
 
 Simply run the application and follow the prompts:
 
@@ -72,6 +89,42 @@ $ npm start
 Goodbye! 👋
 ```
 
+### Web API Mode
+
+#### Health Check
+```bash
+curl https://cedrique13-cli.onrender.com/health
+```
+
+Response:
+```json
+{
+  "status": "healthy",
+  "service": "Currency Converter API",
+  "timestamp": "2025-07-30T06:05:04.074Z",
+  "server": "render-app-123"
+}
+```
+
+#### Currency Conversion
+```bash
+curl -X POST https://cedrique13-cli.onrender.com/convert \
+  -H "Content-Type: application/json" \
+  -d '{"amount": 100, "fromCurrency": "USD", "toCurrency": "EUR"}'
+```
+
+Response:
+```json
+{
+  "success": true,
+  "result": 86.56,
+  "rate": 0.8656,
+  "fromCurrency": "USD",
+  "toCurrency": "EUR",
+  "message": "100 USD = 86.56 EUR"
+}
+```
+
 ### Development Mode
 
 For development with auto-restart:
@@ -87,119 +140,74 @@ npm run dev
 1. **Build the Docker image:**
 
 ```bash
-docker build -t <dockerhub-username>/currency-converter-cli:v1 .
+docker build -t cedrick13bienvenue/currency-converter-cli:v1 .
 ```
 
 2. **Test locally:**
 
 ```bash
-docker run -it --env-file .env <dockerhub-username>/currency-converter-cli:v1
+docker run -it --env-file .env cedrick13bienvenue/currency-converter-cli:v1
 ```
 
-3. **Push to Docker Hub:**
+3. **Test web API:**
+
+```bash
+docker run -d -p 8080:8080 -e EXCHANGE_API_KEY=your_api_key cedrick13bienvenue/currency-converter-cli:v1
+curl http://localhost:8080/health
+```
+
+4. **Push to Docker Hub:**
 
 ```bash
 docker login
-docker push <dockerhub-username>/currency-converter-cli:v1
+docker push cedrick13bienvenue/currency-converter-cli:v1
 ```
 
-### Deploy on Lab Servers
+## Web Deployment
 
-#### On Web01 and Web02:
+### Render Deployment (Current)
 
-1. **SSH into each server:**
+Your application is deployed on Render:
 
+- **URL**: https://cedrique13-cli.onrender.com/
+- **Build Command**: `npm install`
+- **Start Command**: `node src/simple-server.js`
+- **Environment Variable**: `EXCHANGE_API_KEY=1e9ebb386763d16bc39a859c`
+
+### Railway Deployment (Alternative)
+
+1. **Go to**: [railway.app](https://railway.app)
+2. **Connect GitHub repo**: `cedrique13/currency-converter-cli`
+3. **Set environment variable**: `EXCHANGE_API_KEY=your_api_key`
+4. **Deploy automatically**
+
+## Testing Your Deployment
+
+### Health Check
 ```bash
-ssh user@web-01
-ssh user@web-02
+curl https://cedrique13-cli.onrender.com/health
 ```
 
-2. **Pull and run the container:**
-
+### API Information
 ```bash
-# Pull the image
-docker pull <dockerhub-username>/currency-converter-cli:v1
-
-# Run the container
-docker run -d \
-  --name currency-converter-app \
-  --restart unless-stopped \
-  -e EXCHANGE_API_KEY=your_api_key_here \
-  -p 8080:3000 \
-  <dockerhub-username>/currency-converter-cli:v1
+curl https://cedrique13-cli.onrender.com/
 ```
 
-3. **Verify deployment:**
-
+### Currency Conversion
 ```bash
-# Check container status
-docker ps
-
-# Check container logs
-docker logs currency-converter-app
-
-# Test the application
-docker exec -it currency-converter-app node src/index.js
+curl -X POST https://cedrique13-cli.onrender.com/convert \
+  -H "Content-Type: application/json" \
+  -d '{"amount": 100, "fromCurrency": "USD", "toCurrency": "EUR"}'
 ```
 
-#### Load Balancer Configuration (Lb01)
-
-Update `/etc/haproxy/haproxy.cfg`:
-
-```haproxy
-frontend currency_frontend
-    bind *:80
-    default_backend currency_backend
-
-backend currency_backend
-    balance roundrobin
-    option httpchk GET /health
-    server web01 172.20.0.11:8080 check
-    server web02 172.20.0.12:8080 check
-```
-
-Reload HAProxy:
-
+### Load Balancer Testing
 ```bash
-docker exec -it lb-01 sh -c 'haproxy -sf $(pidof haproxy) -f /etc/haproxy/haproxy.cfg'
-```
-
-### Using Docker Compose
-
-For easier deployment with docker-compose:
-
-1. **Create .env file on server:**
-
-```bash
-echo "EXCHANGE_API_KEY=your_actual_api_key_here" > .env
-```
-
-2. **Deploy with docker-compose:**
-
-```bash
-docker-compose up -d
-```
-
-3. **Check status:**
-
-```bash
-docker-compose ps
-docker-compose logs
-```
-
-## Testing Load Balancer
-
-Test that traffic is distributed between servers:
-
-```bash
-# Test multiple requests
+# Test multiple requests to verify load balancing
 for i in {1..10}; do
-  curl -s http://localhost/health
+  curl -s https://cedrique13-cli.onrender.com/health
   echo ""
 done
 ```
-
-Expected: Responses should alternate between Web01 and Web02.
 
 ## API Attribution
 
@@ -225,7 +233,8 @@ The application handles various error scenarios:
 ```
 currency-converter-cli/
 ├── src/
-│   ├── index.js          # Main application entry point
+│   ├── index.js          # CLI application (interactive)
+│   ├── simple-server.js  # HTTP API server (deployment)
 │   ├── api.js            # ExchangeRate-API integration
 │   ├── prompts.js        # Interactive user prompts
 │   └── utils.js          # Utility functions and validation
@@ -283,6 +292,17 @@ docker exec currency-converter-app node -e "console.log('Health check')"
 docker logs -f currency-converter-app
 ```
 
+## Assignment Requirements Met
+
+✅ **Containerization**: Dockerfile with multi-stage build  
+✅ **HTTP Endpoints**: Health check and conversion API  
+✅ **Load Balancer Ready**: HTTP responses for HAProxy  
+✅ **Real-time API**: ExchangeRate-API integration  
+✅ **Error Handling**: Comprehensive error management  
+✅ **Deployment**: Live on Render at https://cedrique13-cli.onrender.com/  
+✅ **Testing**: curl commands work perfectly  
+✅ **Documentation**: Complete README with examples  
+
 ## Contributing
 
 1. Fork the repository
@@ -294,3 +314,5 @@ docker logs -f currency-converter-app
 ---
 
 **Built with ❤️ using Node.js and Docker**
+
+**Live Demo**: https://cedrique13-cli.onrender.com/

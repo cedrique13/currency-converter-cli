@@ -44,21 +44,39 @@ docker build -t cedrick13bienvenue/currency-converter-cli:v1 .
 docker run -p 8080:8080 -e EXCHANGE_API_KEY=your_key cedrick13bienvenue/currency-converter-cli:v1
 ```
 
-## API Testing with Postman
+## API Testing
+
+### Postman Collection
+
+I've set up a comprehensive Postman collection with all the API endpoints for easy testing. You can import the following requests into Postman:
 
 ### 1. Health Check
 
-- **GET** `https://cedrique13-cli.onrender.com/health`
+**GET** `https://cedrique13-cli.onrender.com/health`
+
+**cURL:**
+
+```bash
+curl -X GET https://cedrique13-cli.onrender.com/health
+```
 
 ### 2. API Info
 
-- **GET** `https://cedrique13-cli.onrender.com/`
+**GET** `https://cedrique13-cli.onrender.com/`
+
+**cURL:**
+
+```bash
+curl -X GET https://cedrique13-cli.onrender.com/
+```
 
 ### 3. Convert Currency
 
-- **POST** `https://cedrique13-cli.onrender.com/convert`
-- **Headers**: `Content-Type: application/json`
-- **Body**:
+**POST** `https://cedrique13-cli.onrender.com/convert`
+
+**Headers:** `Content-Type: application/json`
+
+**Body:**
 
 ```json
 {
@@ -68,10 +86,83 @@ docker run -p 8080:8080 -e EXCHANGE_API_KEY=your_key cedrick13bienvenue/currency
 }
 ```
 
+**cURL:**
+
+```bash
+curl -X POST https://cedrique13-cli.onrender.com/convert \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 100,
+    "fromCurrency": "USD",
+    "toCurrency": "EUR"
+  }'
+```
+
 ### 4. Error Testing
 
-- **POST** `https://cedrique13-cli.onrender.com/convert`
-- **Body**: `{}` (missing parameters)
+**POST** `https://cedrique13-cli.onrender.com/convert`
+
+**Body:** `{}` (missing parameters)
+
+**cURL:**
+
+```bash
+curl -X POST https://cedrique13-cli.onrender.com/convert \
+  -H "Content-Type: application/json" \
+  -d '{}'
+```
+
+### 5. Invalid Currency Test
+
+**POST** `https://cedrique13-cli.onrender.com/convert`
+
+**Body:**
+
+```json
+{
+  "amount": 100,
+  "fromCurrency": "INVALID",
+  "toCurrency": "EUR"
+}
+```
+
+**cURL:**
+
+```bash
+curl -X POST https://cedrique13-cli.onrender.com/convert \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 100,
+    "fromCurrency": "INVALID",
+    "toCurrency": "EUR"
+  }'
+```
+
+### 6. Same Currency Test
+
+**POST** `https://cedrique13-cli.onrender.com/convert`
+
+**Body:**
+
+```json
+{
+  "amount": 100,
+  "fromCurrency": "USD",
+  "toCurrency": "USD"
+}
+```
+
+**cURL:**
+
+```bash
+curl -X POST https://cedrique13-cli.onrender.com/convert \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 100,
+    "fromCurrency": "USD",
+    "toCurrency": "USD"
+  }'
+```
 
 ## Project Structure
 

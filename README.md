@@ -5,7 +5,6 @@ A Node.js currency converter with real-time exchange rates and HTTP API endpoint
 ## 🌐 Live Demo
 
 - **API**: https://cedrique13-cli.onrender.com/
-- **Health**: https://cedrique13-cli.onrender.com/health
 
 ## Features
 
@@ -13,7 +12,6 @@ A Node.js currency converter with real-time exchange rates and HTTP API endpoint
 - Interactive CLI interface
 - HTTP API endpoints
 - Docker containerized
-- Health monitoring
 - Comprehensive error handling
 
 ## Quick Start
@@ -50,17 +48,7 @@ docker run -p 8080:8080 -e EXCHANGE_API_KEY=your_key cedrick13bienvenue/currency
 
 I've set up a comprehensive Postman collection with all the API endpoints for easy testing. You can import the following requests into Postman:
 
-### 1. Health Check
-
-**GET** `https://cedrique13-cli.onrender.com/health`
-
-**cURL:**
-
-```bash
-curl -X GET https://cedrique13-cli.onrender.com/health
-```
-
-### 2. API Info
+### 1. API Info
 
 **GET** `https://cedrique13-cli.onrender.com/`
 
@@ -70,7 +58,7 @@ curl -X GET https://cedrique13-cli.onrender.com/health
 curl -X GET https://cedrique13-cli.onrender.com/
 ```
 
-### 3. Convert Currency
+### 2. Convert Currency
 
 **POST** `https://cedrique13-cli.onrender.com/convert`
 
@@ -98,7 +86,7 @@ curl -X POST https://cedrique13-cli.onrender.com/convert \
   }'
 ```
 
-### 4. Error Testing
+### 3. Error Testing
 
 **POST** `https://cedrique13-cli.onrender.com/convert`
 
@@ -112,7 +100,7 @@ curl -X POST https://cedrique13-cli.onrender.com/convert \
   -d '{}'
 ```
 
-### 5. Invalid Currency Test
+### 4. Invalid Currency Test
 
 **POST** `https://cedrique13-cli.onrender.com/convert`
 
@@ -138,7 +126,7 @@ curl -X POST https://cedrique13-cli.onrender.com/convert \
   }'
 ```
 
-### 6. Same Currency Test
+### 5. Same Currency Test
 
 **POST** `https://cedrique13-cli.onrender.com/convert`
 
@@ -174,16 +162,6 @@ src/
 ├── prompts.js       # User interactions
 └── utils.js         # Utilities
 ```
-
-## Requirements Met
-
-✅ Containerization with Docker  
-✅ HTTP endpoints for testing  
-✅ Load balancer ready  
-✅ Real-time API integration  
-✅ Error handling  
-✅ Live deployment  
-✅ Documentation
 
 ---
 

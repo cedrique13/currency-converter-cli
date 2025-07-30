@@ -33,10 +33,6 @@ COPY --chown=nodeuser:nodejs package*.json ./
 # Switch to non-root user
 USER nodeuser
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD node -e "console.log('Health check passed')" || exit 1
-
 # Expose port (for API interface)
 EXPOSE 8080
 

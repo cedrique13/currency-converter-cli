@@ -16,12 +16,6 @@ services:
     tty: true # Allocate a pseudo-TTY for interactive mode
     networks:
       - currency-net
-    healthcheck:
-      test: ["CMD", "node", "-e", "console.log('Health check passed')"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
     # Volume for logs (optional)
     volumes:
       - ./logs:/app/logs:rw

@@ -14,22 +14,11 @@ const PORT = process.env.PORT || 8080;
 // Middleware
 app.use(express.json());
 
-// Health check endpoint
-app.get("/health", (req, res) => {
-  res.json({
-    status: "healthy",
-    service: "Currency Converter API",
-    timestamp: new Date().toISOString(),
-    server: process.env.HOSTNAME || "Unknown",
-  });
-});
-
 // Root endpoint - simple response
 app.get("/", (req, res) => {
   res.json({
     message: "Currency Converter API",
     endpoints: {
-      health: "/health",
       convert: "/convert (POST)",
     },
     usage:
@@ -91,7 +80,6 @@ app.listen(PORT, () => {
   console.log(`========================`);
   console.log(`🌐 Server running on port ${PORT}`);
   console.log(`🔗 API: http://localhost:${PORT}`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/health`);
   console.log(`⏰ Started at: ${new Date().toISOString()}`);
 });
 

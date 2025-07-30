@@ -8,12 +8,13 @@ services:
       target: production
     image: currency-converter-cli:latest
     container_name: currency-converter-app
+    ports:
+      - "8080:8080"
     environment:
       - EXCHANGE_API_KEY=${EXCHANGE_API_KEY}
       - NODE_ENV=production
+      - PORT=8080
     restart: unless-stopped
-    stdin_open: true # Keep STDIN open for interactive CLI
-    tty: true # Allocate a pseudo-TTY for interactive mode
     networks:
       - currency-net
     # Volume for logs (optional)

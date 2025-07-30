@@ -13,8 +13,8 @@ RUN npm ci --only=production && npm cache clean --force
 # Production stage
 FROM node:18-alpine AS production
 
-# Install dumb-init and necessary packages for readline-sync
-RUN apk add --no-cache dumb-init perl util-linux
+# Install dumb-init for proper signal handling
+RUN apk add --no-cache dumb-init
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
@@ -39,5 +39,5 @@ EXPOSE 8080
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
 
-# Default command - run simple API server
+# Default command - run API server
 CMD ["node", "src/simple-server.js"]

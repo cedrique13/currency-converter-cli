@@ -40,6 +40,15 @@ app.get("/", (req, res) => {
 // Convert endpoint
 app.post("/convert", async (req, res) => {
   try {
+    // Check if body exists and is properly parsed
+    if (!req.body || typeof req.body !== "object") {
+      return res.status(400).json({
+        success: false,
+        error:
+          "Invalid request body. Please send JSON with Content-Type: application/json",
+      });
+    }
+
     const { amount, fromCurrency, toCurrency } = req.body;
 
     if (!amount || !fromCurrency || !toCurrency) {

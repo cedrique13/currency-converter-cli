@@ -55,6 +55,7 @@ echo "EXCHANGE_API_KEY=your_actual_api_key_here" > .env
 ### 4. Run the Application
 
 #### CLI Mode (Interactive)
+
 ```bash
 npm start
 # OR
@@ -62,6 +63,7 @@ node src/index.js
 ```
 
 #### Web API Mode (HTTP Server)
+
 ```bash
 node src/simple-server.js
 ```
@@ -92,11 +94,13 @@ Goodbye! 👋
 ### Web API Mode
 
 #### Health Check
+
 ```bash
 curl https://cedrique13-cli.onrender.com/health
 ```
 
 Response:
+
 ```json
 {
   "status": "healthy",
@@ -107,6 +111,7 @@ Response:
 ```
 
 #### Currency Conversion
+
 ```bash
 curl -X POST https://cedrique13-cli.onrender.com/convert \
   -H "Content-Type: application/json" \
@@ -114,6 +119,7 @@ curl -X POST https://cedrique13-cli.onrender.com/convert \
 ```
 
 Response:
+
 ```json
 {
   "success": true,
@@ -184,16 +190,19 @@ Your application is deployed on Render:
 ## Testing Your Deployment
 
 ### Health Check
+
 ```bash
 curl https://cedrique13-cli.onrender.com/health
 ```
 
 ### API Information
+
 ```bash
 curl https://cedrique13-cli.onrender.com/
 ```
 
 ### Currency Conversion
+
 ```bash
 curl -X POST https://cedrique13-cli.onrender.com/convert \
   -H "Content-Type: application/json" \
@@ -201,6 +210,7 @@ curl -X POST https://cedrique13-cli.onrender.com/convert \
 ```
 
 ### Load Balancer Testing
+
 ```bash
 # Test multiple requests to verify load balancing
 for i in {1..10}; do
@@ -301,18 +311,8 @@ docker logs -f currency-converter-app
 ✅ **Error Handling**: Comprehensive error management  
 ✅ **Deployment**: Live on Render at https://cedrique13-cli.onrender.com/  
 ✅ **Testing**: curl commands work perfectly  
-✅ **Documentation**: Complete README with examples  
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/new-feature`
-3. Commit changes: `git commit -m "Add new feature"`
-4. Push to branch: `git push origin feature/new-feature`
-5. Create a Pull Request
+✅ **Documentation**: Complete README with examples
 
 ---
-
-**Built with ❤️ using Node.js and Docker**
 
 **Live Demo**: https://cedrique13-cli.onrender.com/

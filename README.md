@@ -13,7 +13,6 @@ A Node.js currency converter application that provides real-time exchange rates 
 - 🌐 **HTTP API endpoints** for programmatic access
 - 🐳 **Docker containerized** for easy deployment
 - 🛡️ **Comprehensive error handling** for API failures and invalid inputs
-- 🔍 **Data interaction** - search, filter, and convert currencies
 - 📊 **Clear data presentation** with formatted results
 
 ## API Integration

@@ -369,6 +369,24 @@ docker pull cedrick13bienvenue/currency-converter-cli:v1
 docker run -p 8080:8080 -e EXCHANGE_API_KEY=your_key cedrick13bienvenue/currency-converter-cli:v1
 ```
 
+### Load Balancer Setup (Local Simulation)
+
+```bash
+# Create network
+docker network create currency-net
+
+# Run two app instances
+docker run -d --name web01 --restart unless-stopped -p 8080:8080 -e EXCHANGE_API_KEY=your_key cedrick13bienvenue/currency-converter-cli:v1
+docker run -d --name web02 --restart unless-stopped -p 8081:8080 -e EXCHANGE_API_KEY=your_key cedrick13bienvenue/currency-converter-cli:v1.1
+
+# Run HAProxy load balancer
+docker run -d --name lb-01 -p 80:80 -v $(pwd)/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg haproxy:alpine
+
+# Test load balancer
+curl http://localhost:80/
+curl -X POST http://localhost:80/convert -H "Content-Type: application/json" -d '{"amount": 100, "fromCurrency": "USD", "toCurrency": "EUR"}'
+```
+
 ---
 
 **Live Demo**: https://cedrique13-cli.onrender.com/

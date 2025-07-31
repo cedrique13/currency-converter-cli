@@ -309,7 +309,7 @@ Docker/
 **Problem**: Initial Docker images were too large and included unnecessary dependencies.
 **Solution**: Implemented multi-stage builds with Alpine Linux, reducing image size from 280MB to 192MB.
 
-### Challenge 4: Error Handling
+### Challenge 3: Error Handling
 
 **Problem**: Initial implementation lacked comprehensive error handling.
 **Solution**: Added robust error handling for network issues, API failures, and invalid inputs with clear user feedback.

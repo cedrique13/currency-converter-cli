@@ -309,11 +309,6 @@ Docker/
 **Problem**: Initial Docker images were too large and included unnecessary dependencies.
 **Solution**: Implemented multi-stage builds with Alpine Linux, reducing image size from 280MB to 192MB.
 
-### Challenge 3: Health Endpoint Removal
-
-**Problem**: Assignment requirements changed, requiring removal of health monitoring.
-**Solution**: Cleanly removed health endpoints and updated all Docker images with semantic versioning.
-
 ### Challenge 4: Error Handling
 
 **Problem**: Initial implementation lacked comprehensive error handling.
@@ -334,12 +329,18 @@ Docker/
 - **Axios**: HTTP client for API requests
 - **Readline-sync**: CLI interaction library
 - **Dotenv**: Environment variable management
+- **Nodemon**: Development server with auto-reload
 
 ### Development Tools
 
 - **Docker**: Containerization platform
 - **Node.js**: JavaScript runtime
 - **npm**: Package manager
+- **Express.js**: Web framework for HTTP API
+- **Axios**: HTTP client for API requests
+- **Readline-sync**: CLI interaction library
+- **Dotenv**: Environment variable management
+- **Nodemon**: Development server with auto-reload
 
 ## Testing Instructions
 

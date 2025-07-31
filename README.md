@@ -4,7 +4,8 @@ A Node.js currency converter application that provides real-time exchange rates 
 
 ## 🌐 Live Demo
 
-- **API**: https://cedrique13-cli.onrender.com/
+- **API**: https://cedrique13-cli.onrender.com
+- **Demo Video**: https://youtu.be/5E4B7GVYwSg
 
 ## Features
 
